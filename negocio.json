@@ -1,0 +1,76 @@
+{
+  "servicios": {
+    "Spinning": {
+      "tipo": "clase",
+      "duracion_minutos": 60,
+      "dias_indices": [
+        0,
+        2
+      ],
+      "horas": [
+        "18:00"
+      ]
+    },
+    "Zumba": {
+      "tipo": "clase",
+      "duracion_minutos": 60,
+      "dias_indices": [
+        1,
+        3
+      ],
+      "horas": [
+        "17:00"
+      ]
+    },
+    "Yoga": {
+      "tipo": "clase",
+      "duracion_minutos": 60,
+      "dias_indices": [
+        2,
+        4
+      ],
+      "horas": [
+        "19:00"
+      ]
+    },
+    "Funcional": {
+      "tipo": "clase",
+      "duracion_minutos": 60,
+      "dias_indices": [
+        0,
+        2,
+        4
+      ],
+      "horas": [
+        "17:00"
+      ]
+    },
+    "Cross Training": {
+      "tipo": "clase",
+      "duracion_minutos": 60,
+      "dias_indices": [
+        1,
+        3
+      ],
+      "horas": [
+        "19:00"
+      ]
+    },
+    "Valoración física": {
+      "tipo": "valoracion",
+      "duracion_minutos": 60,
+      "dias_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "rango_horas": [
+        "08:00",
+        "12:00"
+      ],
+      "paso_minutos": 30
+    }
+  }
+}

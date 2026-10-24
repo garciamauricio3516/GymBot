@@ -1,0 +1,139 @@
+{
+    "reservas": [
+        {
+            "codigo": "GYM9B1CC",
+            "nombre": "Santiago",
+            "tipo": "Clase",
+            "clase": "Spinning",
+            "fecha": "2026-09-16",
+            "hora": "18:00",
+            "estado": "Cancelada"
+        },
+        {
+            "codigo": "GYMF3BC9",
+            "nombre": "Santiago",
+            "tipo": "clase",
+            "clase": "Spinning",
+            "fecha": "2026-09-16",
+            "hora": "18:00",
+            "estado": "Confirmada"
+        },
+        {
+            "codigo": "GYM0841A",
+            "nombre": "string",
+            "tipo": "Valoracion",
+            "clase": "Valoración física",
+            "fecha": "2026-09-14",
+            "hora": "09:00",
+            "estado": "Confirmada"
+        },
+        {
+            "codigo": "GYM0261B",
+            "nombre": "Santiago",
+            "tipo": "clase",
+            "clase": "Spinning",
+            "fecha": "2026-09-16",
+            "hora": "18:00",
+            "estado": "Confirmada"
+        },
+        {
+            "codigo": "GYMB518F",
+            "nombre": "Sofia Mayorga",
+            "tipo": "clase",
+            "clase": "Spinning",
+            "fecha": "2026-09-16",
+            "hora": "18:00",
+            "estado": "Cancelada"
+        },
+        {
+            "codigo": "GYMC9A0D",
+            "nombre": "Santiago Ocampo",
+            "tipo": "clase",
+            "clase": "Spinning",
+            "fecha": "2026-09-23",
+            "hora": "18:00",
+            "estado": "Cancelada"
+        },
+        {
+            "codigo": "GYM43455",
+            "nombre": "Santiago Ocampo",
+            "tipo": "clase",
+            "clase": "Spinning",
+            "fecha": "2026-09-30",
+            "hora": "18:00",
+            "estado": "Cancelada"
+        },
+        {
+            "codigo": "GYMA8624",
+            "nombre": "Mauricio García",
+            "tipo": "clase",
+            "clase": "Cross Training",
+            "fecha": "2026-09-15",
+            "hora": "19:00",
+            "estado": "Confirmada"
+        },
+        {
+            "codigo": "GYMC68D0",
+            "nombre": "Matías Lopez",
+            "tipo": "clase",
+            "clase": "Cross Training",
+            "fecha": "2026-10-06",
+            "hora": "19:00",
+            "estado": "Cancelada"
+        },
+        {
+            "codigo": "GYM34FC0",
+            "nombre": "Erick García",
+            "tipo": "clase",
+            "clase": "Zumba",
+            "fecha": "2026-09-15",
+            "hora": "17:00",
+            "estado": "Cancelada"
+        },
+        {
+            "codigo": "GYM0772F",
+            "nombre": "Sofia Mayorga",
+            "tipo": "clase",
+            "clase": "Funcional",
+            "fecha": "2026-09-18",
+            "hora": "17:00",
+            "estado": "Cancelada"
+        },
+        {
+            "codigo": "GYM367E8",
+            "nombre": "Matias Lopez",
+            "tipo": "clase",
+            "clase": "Spinning",
+            "fecha": "2026-09-23",
+            "hora": "18:00",
+            "estado": "Confirmada"
+        },
+        {
+            "codigo": "GYMD00CD",
+            "nombre": "Santiago Ocampo",
+            "tipo": "clase",
+            "clase": "Zumba",
+            "fecha": "2026-10-08",
+            "hora": "17:00",
+            "estado": "Cancelada"
+        },
+        {
+            "codigo": "GYM2AE12",
+            "nombre": "Santiago Ocampo",
+            "tipo": "clase",
+            "clase": "Cross Training",
+            "fecha": "2026-10-08",
+            "hora": "19:00",
+            "estado": "Cancelada"
+        },
+        {
+            "codigo": "GYMAA78F",
+            "nombre": "santiago ocampo",
+            "tipo": "clase",
+            "clase": "Funcional",
+            "fecha": "2026-10-07",
+            "hora": "17:00",
+            "estado": "Confirmada"
+        }
+    ]
+}

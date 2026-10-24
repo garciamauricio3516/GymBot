@@ -1,0 +1,164 @@
+openapi: 3.0.0
+
+info:
+  title: GymBot API
+  description: API para consultar informacion del gimnasio y gestionar reservas.
+  version: 1.0.0
+
+servers:
+  - url: http://host.docker.internal:8011
+
+paths:
+
+  /servicios:
+    get:
+      operationId: consultarServicios
+      summary: Consultar informacion del gimnasio
+      description: Consulta planes, precios, horarios, clases, valoraciones y servicios del gimnasio.
+      responses:
+        "200":
+          description: Informacion del gimnasio
+
+  /disponibilidad:
+    get:
+      operationId: consultarDisponibilidad
+      summary: Consultar disponibilidad
+      description: Consulta los cupos disponibles para una clase o valoracion.
+      parameters:
+        - name: clase
+          in: query
+          required: true
+          schema:
+            type: string
+
+        - name: fecha
+          in: query
+          required: true
+          schema:
+            type: string
+
+        - name: hora
+          in: query
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Disponibilidad del servicio
+
+  /reservas:
+    post:
+      operationId: crearReserva
+      summary: Crear una reserva
+      description: Crea una reserva solamente despues de que el usuario haya confirmado explicitamente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nombre
+                - tipo
+                - clase
+                - fecha
+                - hora
+              properties:
+                nombre:
+                  type: string
+                tipo:
+                  type: string
+                  enum:
+                    - clase
+                    - valoracion
+                clase:
+                  type: string
+                fecha:
+                  type: string
+                hora:
+                  type: string
+
+      responses:
+        "200":
+          description: Reserva creada correctamente
+
+  /reservas/{codigo}:
+    get:
+      operationId: consultarReserva
+      summary: Consultar una reserva
+      description: Consulta una reserva utilizando su codigo.
+      parameters:
+        - name: codigo
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Informacion de la reserva
+
+  /cancelarReserva:
+    post:
+      operationId: cancelarReserva
+      summary: Cancelar una reserva
+      description: Cancela una reserva utilizando su codigo. Esta herramienta debe ejecutarse solamente despues de que el usuario confirme explicitamente la cancelacion. Nunca inventes un codigo de reserva.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - codigo
+              properties:
+                codigo:
+                  type: string
+                  description: Codigo unico de la reserva que se desea cancelar.
+
+      responses:
+        "200":
+          description: Resultado de la cancelacion    
+
+  /modificarReserva:
+    post:
+      operationId: modificarReserva
+      summary: Modificar una reserva
+      description: Modifica una reserva existente utilizando su codigo. Solo debe ejecutarse despues de que el usuario confirme los nuevos datos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - codigo
+                - nombre
+                - clase
+                - fecha
+                - hora
+              properties:
+                codigo:
+                  type: string
+                  description: Codigo de la reserva que se desea modificar.
+                  example: GYMC68D0
+                nombre:
+                  type: string
+                  description: Nombre completo del usuario.
+                  example: Matias Lopez
+                clase:
+                  type: string
+                  description: Nueva clase o servicio de la reserva.
+                  example: Cross Training
+                fecha:
+                  type: string
+                  description: Nueva fecha de la reserva en formato YYYY-MM-DD.
+                  example: "2026-10-08"
+                hora:
+                  type: string
+                  description: Nueva hora de la reserva en formato HH:MM.
+                  example: "19:00"
+      responses:
+        "200":
+          description: Resultado de la modificacion

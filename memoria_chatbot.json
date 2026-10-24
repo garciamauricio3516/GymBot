@@ -1,0 +1,66 @@
+[
+    {
+        "rol": "usuario",
+        "mensaje": "que planes tienes?"
+    },
+    {
+        "rol": "bot",
+        "mensaje": "{\n  \"planes\": [\n    {\n      \"nombre\": \"Básico\",\n      \"precio\": 60000,\n      \"periodo\": \"mensual\",\n      \"descripcion\": \"Acceso al gimnasio\"\n    },\n    {\n      \"nombre\": \"Estándar\",\n      \"precio\": 80000,\n      \"periodo\": \"mensual\",\n      \"descripcion\": \"Acceso al gimnasio y clases grupales\"\n    },\n    {\n      \"nombre\": \"Premium\",\n      \"precio\": 110000,\n      \"periodo\": \"mensual\",\n      \"descripcion\": \"Acceso al gimnasio, clases grupales y valoración física\"\n    }\n  ],\n  \"horarios_gimnasio\": {\n    \"lunes_a_viernes\": \"5:00 a.m. - 10:00 p.m.\",\n    \"sabado\": \"7:00 a.m. - 6:00 p.m.\",\n    \"domingo\": \"8:00 a.m. - 2:00 p.m.\"\n  },\n  \"clases\": [\n    {\n      \"nombre\": \"Spinning\",\n      \"dias\": \"lunes y miércoles\",\n      \"hora\": \"18:00\",\n      \"duracion\": \"1 hora\"\n    },\n    {\n      \"nombre\": \"Zumba\",\n      \"dias\": \"martes y jueves\",\n      \"hora\": \"17:00\",\n      \"duracion\": \"1 hora\"\n    },\n    {\n      \"nombre\": \"Yoga\",\n      \"dias\": \"miércoles y viernes\",\n      \"hora\": \"19:00\",\n      \"duracion\": \"1 hora\"\n    },\n    {\n      \"nombre\": \"Funcional\",\n      \"dias\": \"lunes, miércoles y viernes\",\n      \"hora\": \"17:00\",\n      \"duracion\": \"1 hora\"\n    },\n    {\n      \"nombre\": \"Cross Training\",\n      \"dias\": \"martes y jueves\",\n      \"hora\": \"19:00\",\n      \"duracion\": \"1 hora\"\n    }\n  ],\n  \"valoraciones\": [\n    {\n      \"nombre\": \"Valoración física\",\n      \"dias\": \"lunes a viernes\",\n      \"hora_inicio\": \"08:00\",\n      \"hora_fin\": \"12:00\",\n      \"duracion\": \"1 hora\"\n    }\n  ],\n  \"servicios\": [\n    {\n      \"nombre\": \"Valoración física\",\n      \"descripcion\": \"Evaluación inicial del estado físico del usuario\"\n    },\n    {\n      \"nombre\": \"Clases grupales\",\n      \"descripcion\": \"Clases dirigidas por instructores\"\n    },\n    {\n      \"nombre\": \"Acceso al gimnasio\",\n      \"descripcion\": \"Acceso a las instalaciones y zona de entrenamiento\"\n    }\n  ]\n}"
+    },
+    {
+        "rol": "usuario",
+        "mensaje": "estoy interesado en una clase de spinning"
+    },
+    {
+        "rol": "bot",
+        "mensaje": "Necesito: cliente, fecha, hora"
+    },
+    {
+        "rol": "usuario",
+        "mensaje": "me llamo santiago ocampo, la quiero el lunes 5 de octubre de 2026 a las 18:00"
+    },
+    {
+        "rol": "bot",
+        "mensaje": "Operación realizada correctamente.\n\nCódigo de reserva: GYMAA78F\nNombre: santiago ocampo\nClase: Spinning\nFecha: 2026-10-05\nHora: 18:00\n"
+    },
+    {
+        "rol": "usuario",
+        "mensaje": "quiero consulta mi reserva GYMAA78F"
+    },
+    {
+        "rol": "bot",
+        "mensaje": "Operación realizada correctamente.\n\nCódigo de reserva: GYMAA78F\nNombre: santiago ocampo\nClase: Spinning\nFecha: 2026-10-05\nHora: 18:00\n"
+    },
+    {
+        "rol": "usuario",
+        "mensaje": "quiero modificar mi reserva con codigo GYMAA78F"
+    },
+    {
+        "rol": "bot",
+        "mensaje": "Necesito: servicio, fecha, hora"
+    },
+    {
+        "rol": "usuario",
+        "mensaje": "quiero cambiar la clase a funcional el dia miercoles 07 de octubre de 2026 a las 17:00"
+    },
+    {
+        "rol": "bot",
+        "mensaje": "Reserva modificada correctamente"
+    },
+    {
+        "rol": "usuario",
+        "mensaje": "quiero consultar mi reserva con el codigo GYMAA78F"
+    },
+    {
+        "rol": "bot",
+        "mensaje": "Operación realizada correctamente.\n\nCódigo de reserva: GYMAA78F\nNombre: santiago ocampo\nClase: Funcional\nFecha: 2026-10-07\nHora: 17:00\n"
+    },
+    {
+        "rol": "usuario",
+        "mensaje": "quiero consultar mi reserva con codigo GYMAA78F"
+    },
+    {
+        "rol": "bot",
+        "mensaje": "Operación realizada correctamente.\n\nCódigo de reserva: GYMAA78F\nNombre: santiago ocampo\nClase: Funcional\nFecha: 2026-10-07\nHora: 17:00\n"
+    }
+]

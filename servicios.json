@@ -1,0 +1,86 @@
+{
+    "planes": [
+        {
+            "nombre": "Básico",
+            "precio": 60000,
+            "periodo": "mensual",
+            "descripcion": "Acceso al gimnasio"
+        },
+        {
+            "nombre": "Estándar",
+            "precio": 80000,
+            "periodo": "mensual",
+            "descripcion": "Acceso al gimnasio y clases grupales"
+        },
+        {
+            "nombre": "Premium",
+            "precio": 110000,
+            "periodo": "mensual",
+            "descripcion": "Acceso al gimnasio, clases grupales y valoración física"
+        }
+    ],
+
+    "horarios_gimnasio": {
+        "lunes_a_viernes": "5:00 a.m. - 10:00 p.m.",
+        "sabado": "7:00 a.m. - 6:00 p.m.",
+        "domingo": "8:00 a.m. - 2:00 p.m."
+    },
+
+    "clases": [
+        {
+            "nombre": "Spinning",
+            "dias": "lunes y miércoles",
+            "hora": "18:00",
+            "duracion": "1 hora"
+        },
+        {
+            "nombre": "Zumba",
+            "dias": "martes y jueves",
+            "hora": "17:00",
+            "duracion": "1 hora"
+        },
+        {
+            "nombre": "Yoga",
+            "dias": "miércoles y viernes",
+            "hora": "19:00",
+            "duracion": "1 hora"
+        },
+        {
+            "nombre": "Funcional",
+            "dias": "lunes, miércoles y viernes",
+            "hora": "17:00",
+            "duracion": "1 hora"
+        },
+        {
+            "nombre": "Cross Training",
+            "dias": "martes y jueves",
+            "hora": "19:00",
+            "duracion": "1 hora"
+        }
+    ],
+
+    "valoraciones": [
+        {
+            "nombre": "Valoración física",
+            "dias": "lunes a viernes",
+            "hora_inicio": "08:00",
+            "hora_fin": "12:00",
+            "duracion": "1 hora"
+        }
+    ],
+
+    "servicios": [
+        {
+            "nombre": "Valoración física",
+            "descripcion": "Evaluación inicial del estado físico del usuario"
+        },
+        {
+            "nombre": "Clases grupales",
+            "descripcion": "Clases dirigidas por instructores"
+        },
+        {
+            "nombre": "Acceso al gimnasio",
+            "descripcion": "Acceso a las instalaciones y zona de entrenamiento"
+        }
+    ]
+}
