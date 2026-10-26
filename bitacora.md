@@ -363,3 +363,107 @@ ejecutándose y revisa el error en su terminal.
 > migración y nombres de archivos deben comprobarse contra la versión
 > exacta del repositorio. Antes de migrar datos que deban conservarse,
 > realiza una copia de seguridad y prueba en una copia.
+
+
+---
+
+# Bitácora — Clase 11–12: Telegram como canal de GymBot
+
+## 1. Objetivo
+
+Integrar Telegram como un canal adicional para consultar información real de GymBot. El bot reutiliza el procesamiento conversacional existente (`procesar_turno`), el intérprete de Groq (`consulta_llm.py`) y la API FastAPI (`main.py`). No duplica la lógica de negocio ni accede directamente a SQLite.
+
+## 2. Arquitectura del mensaje
+
+```text
+Usuario en Telegram
+        ↓
+BotFather crea el bot y entrega el token
+        ↓
+ bot_telegram.py (comandos y mensajes)
+        ↓
+ chatbot_memoria.py → procesar_turno()
+        ↓
+ consulta_llm.py → Groq interpreta la intención
+        ↓
+ FastAPI (127.0.0.1:8011)
+        ↓
+ servicios.json / almacen_sqlite.py / reservas.db
+        ↓
+Respuesta formateada al mismo chat de Telegram
+```
+
+## 3. Archivos modificados o añadidos
+
+| Archivo | Cambio |
+|---|---|
+| `bot_telegram.py` | Nuevo adaptador de Telegram, comandos `/start`, `/help`, `/reset`, historial separado por chat, consultas y mensajes de error. |
+| `requirements.txt` | Se agregó `python-telegram-bot>=22,<23`. |
+| `consulta_llm.py` | Disponibilidad solo requiere servicio y fecha; la hora es opcional para que la API pueda devolver la lista de horas disponibles. |
+| `chatbot_memoria.py` | Se reutiliza sin duplicar la lógica del chatbot. |
+| `main.py` | Se reutiliza la API existente en el puerto 8011. |
+
+## 4. Configuración segura
+
+1. Crear el bot desde [@BotFather](https://t.me/BotFather) usando `/newbot`.
+2. Guardar el token en privado; no incorporarlo al código ni a GitHub.
+3. Configurar `TELEGRAM_BOT_TOKEN`, `GROQ_API_KEY`, `GROQ_MODEL` y `CHATBOT_API_URL` en la terminal de ejecución.
+4. Mantener FastAPI encendida en `http://127.0.0.1:8011`.
+5. Instalar dependencias con `python -m pip install -r requirements.txt`.
+6. Ejecutar `python bot_telegram.py` en otra terminal.
+
+## 5. Comandos y pruebas
+
+| Prueba | Resultado esperado |
+|---|---|
+| `/start` | Bienvenida de GymBot. |
+| `/help` | Comandos y ejemplos para consultar planes y disponibilidad. |
+| `¿Qué planes tiene GymBot y cuánto cuestan?` | Planes Básico, Estándar y Premium con precios del catálogo real. |
+| `¿Qué días hay Spinning?` | Horarios leídos desde el catálogo de FastAPI. |
+| `¿Qué disponibilidad hay para Spinning el AAAA-MM-DD?` | Lista de horarios disponibles devuelta por la API, si la fecha es válida. |
+| `/reset` | Borra el historial conversacional de ese chat; no borra reservas del negocio. |
+| Solicitar crear/modificar/cancelar reserva | El bot informa que esta entrega no ejecuta esas operaciones desde Telegram. |
+
+Las pruebas deben realizarse con FastAPI encendida y fechas futuras válidas. Registrar como evidencia las respuestas reales; no inventar capturas ni resultados.
+
+## 6. Ejecución en Windows CMD
+
+**Terminal 1 — FastAPI:**
+
+```bat
+cd /d "C:\Users\TU_USUARIO\GymBot"
+venv\Scripts\activate
+python -m uvicorn main:app --host 127.0.0.1 --port 8011
+```
+
+**Terminal 2 — Telegram:**
+
+```bat
+cd /d "C:\Users\TU_USUARIO\GymBot"
+venv\Scripts\activate
+python -m pip install -r requirements.txt
+set CHATBOT_API_URL=http://127.0.0.1:8011
+set GROQ_API_KEY=TU_CLAVE_GROQ
+set GROQ_MODEL=TU_MODELO_GROQ
+set TELEGRAM_BOT_TOKEN=TU_TOKEN_TELEGRAM
+python bot_telegram.py
+```
+
+Reemplazar `TU_USUARIO`, `TU_CLAVE_GROQ`, `TU_MODELO_GROQ` y `TU_TOKEN_TELEGRAM` por valores propios. La clave y el token son secretos; no incluirlos en la bitácora, capturas ni repositorio. Si no se define `TELEGRAM_BOT_TOKEN`, el programa solicitará el token de forma oculta.
+
+## 7. Alcance y limitaciones
+
+- La entrega conecta Telegram con las consultas existentes del proyecto.
+- La memoria conversacional de Telegram se mantiene por chat durante la ejecución del proceso; `/reset` reinicia solo ese contexto.
+- Las reservas se almacenan en la API/SQLite, no en el adaptador de Telegram.
+- La confirmación de creación, modificación y cancelación desde Telegram queda fuera del alcance de esta sesión, tal como indica la guía del laboratorio.
+- El equipo debe mantener un solo proceso de polling por token.
+
+## 8. Evidencias pendientes de ejecución
+
+- [ ] Captura de `/start`.
+- [ ] Captura de `/help`.
+- [ ] Consulta de planes y precios.
+- [ ] Consulta de disponibilidad comparada con `/docs`.
+- [ ] Prueba de continuidad de contexto y luego `/reset`.
+- [ ] Captura de una consulta fallida con FastAPI detenida y mensaje de error controlado.

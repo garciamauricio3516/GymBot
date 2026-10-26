@@ -60,8 +60,7 @@ REQUERIDOS = {
 
     "disponibilidad": (
         "servicio",
-        "fecha",
-        "hora"
+        "fecha"
     ),
 
     "crear": (

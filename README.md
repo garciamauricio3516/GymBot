@@ -368,3 +368,48 @@ Si `reservas.json` o `memoria_chatbot.json` ya fueron agregados a Git, añadirlo
 ## Alcance
 
 Esta configuración está pensada para desarrollo local y demostración académica. Para desplegar GymBot en internet se requiere una configuración adicional de seguridad, gestión de secretos, autenticación, HTTPS, copias de seguridad y control de acceso a las reservas.
+
+
+---
+
+## Canal adicional: Telegram (clases 11–12)
+
+### 1. Instalar dependencia
+
+```bat
+venv\Scripts\activate
+python -m pip install -r requirements.txt
+```
+
+### 2. Crear el bot
+
+En Telegram, abre [@BotFather](https://t.me/BotFather), ejecuta `/newbot` y guarda el token en privado.
+
+### 3. Iniciar FastAPI
+
+En una primera terminal: `python -m uvicorn main:app --host 127.0.0.1 --port 8011`. Deja la terminal abierta.
+
+### 4. Configurar y ejecutar Telegram
+
+En una segunda terminal CMD, desde la carpeta del proyecto, ejecuta: 
+
+```bat
+venv\Scripts\activate
+set CHATBOT_API_URL=http://127.0.0.1:8011
+set GROQ_API_KEY=TU_CLAVE_GROQ
+set GROQ_MODEL=TU_MODELO_GROQ
+set TELEGRAM_BOT_TOKEN=TU_TOKEN_TELEGRAM
+python bot_telegram.py
+```
+
+Sustituye los marcadores por tus valores. No publiques la clave de Groq ni el token de Telegram. También puedes omitir `TELEGRAM_BOT_TOKEN`; el programa lo pedirá sin mostrarlo mientras se escribe.
+
+### 5. Pruebas de Telegram
+
+- `/start`: bienvenida.
+- `/help`: instrucciones.
+- `¿Qué planes tiene GymBot y cuánto cuestan?`: catálogo de planes.
+- `¿Qué disponibilidad hay para Spinning el AAAA-MM-DD?`: consulta la disponibilidad para una fecha válida.
+- `/reset`: reinicia el historial de conversación de ese chat.
+
+En esta entrega, Telegram permite consultas. La creación, modificación y cancelación desde Telegram no se ejecutan; la integración de confirmaciones queda para la siguiente sesión del laboratorio.

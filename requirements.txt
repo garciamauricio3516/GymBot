@@ -2,3 +2,4 @@ fastapi
 uvicorn
 gradio>=6,<7
 pydantic
+python-telegram-bot>=22,<23
