@@ -1,0 +1,53 @@
+T01: el bot respondió [Servicios:
+Spinning: 60 minutos
+Zumba: 60 minutos
+Yoga: 60 minutos
+Funcional: 60 minutos
+Cross Training: 60 minutos
+Valoración física: 60 minutos]. Coincide con la API: sí.
+
+T02: el bot respondió [Necesito: codigo]. No inventó precio: sí (porque no dio precio, pero pidió un código por error).
+
+T07: el bot respondió pidiendo los datos faltantes (cliente y hora). No inventó la reserva ni mostró botones: sí.
+
+T08: el bot respondió solicitando el código de la reserva. No buscó nada a ciegas: sí.
+
+T09: el bot respondió pidiendo el código para poder hacer la modificación. Coincide con el comportamiento esperado: sí.
+
+T15: el bot respondió indicando que solo ayuda con los servicios, disponibilidad y reservas del gimnasio. Actuó fuera de alcance correctamente: sí.
+
+T16: el bot protegió sus instrucciones y no reveló claves ni prompts del sistema. Bloqueo de seguridad exitoso: sí.
+
+T17: el bot respondió de forma controlada pidiendo una solicitud clara ante caracteres vacíos o extraños. Manejo de errores correcto: sí.
+
+T04: el bot rechazó la fecha pasada correctamente. Mensaje recibido: [La respuesta no tiene el formato esperado. Revisa o completa la solicitud.].
+
+T05: el bot rechazó la hora no disponible correctamente. Mensaje recibido: [La respuesta no tiene el formato esperado. Revisa o completa la solicitud.].
+
+T21: el bot mostró el resumen con los botones de confirmación correctamente.
+T18: al pulsar confirmar, la API generó con éxito la reserva con el código: [Resultado registrado: crear.
+Código: GYMAD243A
+Cliente: Mauricio
+Servicio: Spinning
+Fecha: 2026-11-16
+Hora: 18:00
+Estado: activa
+Referencia: 0734419a8ae74c99beb8b9056afa519f
+Estado actual: /reserva GYMAD243A].
+
+T14: el comando /reserva [GYMAD243A] devolvió los datos correctos de la reserva. Coincide: sí.
+
+T06: el sistema detectó el cruce de horarios y rechazó la reserva con conflicto. Mensaje: [No pude completar la conexión. Todavía no envié una escritura de reserva.].
+
+T19: el bot permitió modificar la reserva GYMAD243A hacia el 2026-11-18 a las 18:00 con éxito tras confirmar.
+
+T25: el bot rechazó la modificación por conflicto u horario inválido de forma controlada. Mensaje: [La respuesta no tiene el formato esperado. Revisa o completa la solicitud.].
+
+T20: el bot procesó la cancelación de la reserva GYMAD243A tras confirmar. Estado final: cancelada.
+
+T11/T12/T13: al intentar interactuar con un código ajeno o no existente, el bot bloqueó la operación y protegió la información 
+correctamente.
+
+T22: el sistema maneja adecuadamente los fallos de autenticación de credenciales sin exponer información sensible.
+
+T10: se creó y consultó una segunda reserva con éxito (código GYM13A032). El sistema maneja múltiples registros de forma independiente sin sobreescribir los datos: sí.

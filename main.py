@@ -1,10 +1,12 @@
 """API de GymBot: catálogo y reservas persistidas en SQLite."""
 import json
+import os
 from datetime import date
 from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from almacen_sqlite import AgendaSQLite, ConflictoReserva, ReservaNoEncontrada
+from api_telegram import AgendaTelegram, crear_router
 
 BASE = Path(__file__).resolve().parent
 SERVICIOS_JSON = json.loads((BASE / "servicios.json").read_text(encoding="utf-8-sig"))
@@ -34,8 +36,9 @@ def construir_catalogo():
     return catalogo
 
 CATALOGO = construir_catalogo()
-agenda = AgendaSQLite(BASE / "reservas.db", CATALOGO)
+agenda = AgendaTelegram(BASE / "reservas.db", CATALOGO)
 app = FastAPI(title="GymBot API", version="2.0.0")
+app.include_router(crear_router(agenda, os.environ.get("CHATBOT_API_KEY", "")))
 
 class ReservaNueva(BaseModel):
     nombre: str = Field(min_length=2)
