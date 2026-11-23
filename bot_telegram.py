@@ -44,15 +44,28 @@ REQUERIDOS = {"disponibilidad": ("servicio", "fecha"), "consultar": ("codigo",),
               "crear": ("cliente", "servicio", "fecha", "hora"),
               "modificar": ("codigo", "servicio", "fecha", "hora"), "cancelar": ("codigo",)}
 INSTRUCCIONES = """Interpreta solicitudes del negocio. Devuelve solamente un objeto JSON
-con accion, cliente, servicio, fecha, hora y codigo, todos como texto.
-Acciones: servicios, disponibilidad, consultar, crear, modificar, cancelar, fuera_de_alcance.
+con las claves accion, cliente, servicio, fecha, hora y codigo, todas como texto
+(cadena vacía cuando no haya dato).
+Cuándo usar cada acción:
+- servicios: pregunta qué servicios, planes, clases, precios o duración ofrece el gimnasio. No necesita codigo.
+- disponibilidad: pregunta qué horarios o cupos hay para un servicio en una fecha, sin pedir reservar una hora concreta.
+- crear: quiere reservar. Usa cliente, servicio, fecha y hora.
+- consultar: quiere ver una reserva existente. Solo si el usuario menciona un codigo de reserva.
+- modificar o cancelar: cambia o cancela una reserva existente; requieren codigo.
+- fuera_de_alcance: temas ajenos al gimnasio o pedidos de secretos o claves.
+Nunca uses consultar si el usuario no menciona un codigo de reserva.
 Usa el historial para completar datos. Usa fecha AAAA-MM-DD y hora HH:MM.
 Servicios válidos de GymBot (usa exactamente estos nombres): Spinning, Zumba, Yoga, Funcional, Cross Training, Valoración física.
 Si falta información, deja el campo vacío. Si varias reservas podrían ser la solicitada,
 deja codigo vacío para pedir aclaración. No inventes códigos, servicios ni disponibilidad.
-La consulta de precios usa servicios. Nunca afirmes que ejecutaste una reserva.
-Las decisiones de confirmar o descartar las procesa el programa mediante botones.
-Las peticiones ajenas al negocio o de secretos usan fuera_de_alcance."""
+Nunca afirmes que ejecutaste una reserva. Las decisiones de confirmar o descartar
+las procesa el programa mediante botones.
+Ejemplos:
+"¿Qué servicios tienen?" -> {"accion":"servicios","cliente":"","servicio":"","fecha":"","hora":"","codigo":""}
+"¿Qué planes ofreces?" -> {"accion":"servicios","cliente":"","servicio":"","fecha":"","hora":"","codigo":""}
+"¿Hay cupo de Yoga el 2026-11-25?" -> {"accion":"disponibilidad","cliente":"","servicio":"Yoga","fecha":"2026-11-25","hora":"","codigo":""}
+"Quiero reservar Yoga el 2026-11-25 a las 18:00, soy Ana" -> {"accion":"crear","cliente":"Ana","servicio":"Yoga","fecha":"2026-11-25","hora":"18:00","codigo":""}
+"Cancela la reserva GYM123" -> {"accion":"cancelar","cliente":"","servicio":"","fecha":"","hora":"","codigo":"GYM123"}"""
 AYUDA = (
     "Puedes consultar servicios y disponibilidad, preparar reservas, modificarlas y cancelarlas.\n"
     "Revisa siempre el resumen antes de pulsar Confirmar.\n\n"
@@ -69,13 +82,23 @@ def nuevo_historial():
 
 
 def interpretar(pregunta, historial, clave, modelo):
-    payload = {"model": modelo, "messages": historial + [{"role": "user", "content": pregunta}], "stream": False}
+    payload = {
+        "model": modelo,
+        "messages": historial + [{"role": "user", "content": pregunta}],
+        "stream": False,
+        "temperature": 0,
+        "response_format": {"type": "json_object"},
+    }
     respuesta = peticion_json(GROQ_URL, "POST", payload, {"Authorization": f"Bearer {clave}"})
-    plan = json.loads(respuesta["choices"][0]["message"]["content"])
+    texto = (respuesta["choices"][0]["message"].get("content") or "").strip()
+    print("RESPUESTA DEL MODELO:", texto)  # temporal, bórralo cuando funcione
+    inicio, fin = texto.find("{"), texto.rfind("}")
+    if inicio == -1 or fin <= inicio:
+        raise ValueError("El modelo no devolvió JSON")
+    plan = json.loads(texto[inicio:fin + 1])
     if not isinstance(plan, dict) or plan.get("accion") not in ACCIONES:
         raise ValueError("Acción inválida en la respuesta del modelo")
     return {campo: str(plan.get(campo) or "").strip() for campo in CAMPOS}
-
 
 def preparar_pendiente(plan, chat_id, usuario_id, referencia=""):
     return {"solicitud_id": uuid4().hex, "chat_id": chat_id, "usuario_id": usuario_id,
