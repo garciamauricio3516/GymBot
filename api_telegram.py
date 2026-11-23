@@ -2,13 +2,14 @@
 
 import hashlib
 import json
+import os
 import secrets
 import sqlite3
 from contextlib import contextmanager
 from threading import local
 from typing import Literal
 
-from fastapi import APIRouter, Depends, Header, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException, FastAPI
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -196,3 +197,16 @@ def crear_router(agenda, clave):
         return {"estado_http": codigo, "resultado": contenido}
 
     return router
+
+
+# --- CONFIGURACIÓN DE FASTAPI PARA UVICORN ---
+with open("negocio.json", "r", encoding="utf-8") as f:
+    datos_negocio = json.load(f)
+
+agenda = AgendaTelegram("reservas.db", datos_negocio)
+
+app = FastAPI(title="GymBot Telegram API", version="1.0")
+
+CHATBOT_API_KEY = os.getenv("CHATBOT_API_KEY", "tu_clave_secreta_super_segura_12345")
+
+app.include_router(crear_router(agenda, CHATBOT_API_KEY))
